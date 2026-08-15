@@ -2,7 +2,7 @@
 
 Live: https://deadwayz.github.io/hyle-showcase/
 
-![HYLE showcase preview](floorlink.gif)
+![Floorlink showcase preview](floorlink.gif)
 
 Internal web app for low-latency live screen and system-audio streaming
 between two office floors. One PC broadcasts its display via
