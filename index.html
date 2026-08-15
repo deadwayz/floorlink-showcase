@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FLOORLINK — Product Tour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#05070c; --bg2:#080b12; --panel:#0f172a; --panel-soft:#0c1420;
+    --border:#1e293b; --border-soft:#152034;
+    --text:#f1f5f9; --text-dim:#94a3b8; --text-faint:#475569;
+    --cyan:#38bdf8; --green:#34d399; --amber:#f5a524; --red:#f87171;
+    --mono:'JetBrains Mono','SFMono-Regular','Roboto Mono',Menlo,monospace;
+    --shadow:0 20px 60px -20px rgba(0,0,0,.75);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#000;height:100%;}
+  body{display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:var(--mono);}
+  #stageWrap{width:100%;max-width:1280px;aspect-ratio:16/9;position:relative;overflow:hidden;border-radius:10px;box-shadow:0 30px 90px -20px rgba(0,0,0,.9);}
+  #stage{width:1280px;height:720px;position:absolute;top:0;left:0;transform-origin:top left;
+    background:radial-gradient(120% 140% at 15% -10%,#0b1220 0%,var(--bg) 45%,#020305 100%);overflow:hidden;}
+
+  .grid-bg{position:absolute;inset:0;opacity:.3;
+    background-image:linear-gradient(to right, rgba(56,189,248,.08) 1px, transparent 1px),linear-gradient(to bottom, rgba(56,189,248,.08) 1px, transparent 1px);
+    background-size:46px 46px;mask-image:radial-gradient(80% 80% at 50% 40%, #000 40%, transparent 100%);animation:gridDrift 22s linear infinite;}
+  @keyframes gridDrift{0%{background-position:0 0,0 0;}100%{background-position:92px 46px,92px 46px;}}
+  .glow{position:absolute;border-radius:50%;filter:blur(64px);opacity:.28;pointer-events:none;}
+  .glow.c1{width:480px;height:480px;background:#1d6fb8;top:-160px;left:-120px;animation:glowFloat 10s ease-in-out infinite;}
+  .glow.c2{width:420px;height:420px;background:#0fb8c4;bottom:-150px;right:-90px;animation:glowFloat 12s ease-in-out infinite reverse;}
+  @keyframes glowFloat{0%,100%{transform:translate(0,0);}50%{transform:translate(26px,-18px);}}
+  .particle{position:absolute;border-radius:50%;background:var(--cyan);opacity:0;filter:blur(.3px);box-shadow:0 0 8px 1px rgba(56,189,248,.7);animation:particleFloat linear infinite;}
+  @keyframes particleFloat{0%{opacity:0;transform:translateY(0);}10%{opacity:.85;}90%{opacity:.55;}100%{opacity:0;transform:translateY(-130px);}}
+
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;padding:46px 64px;}
+  .eyebrow{font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--text-faint);margin-bottom:10px;}
+  .crosshair{width:26px;height:26px;position:relative;}
+  .crosshair span{position:absolute;width:8px;height:8px;border-color:var(--cyan);}
+  .crosshair .a{top:0;left:0;border-top:1.5px solid;border-left:1.5px solid;}
+  .crosshair .b{top:0;right:0;border-top:1.5px solid;border-right:1.5px solid;}
+  .crosshair .c{bottom:0;left:0;border-bottom:1.5px solid;border-left:1.5px solid;}
+  .crosshair .d{bottom:0;right:0;border-bottom:1.5px solid;border-right:1.5px solid;}
+  .crosshair .dot{position:absolute;top:50%;left:50%;width:3px;height:3px;background:var(--cyan);border-radius:50%;transform:translate(-50%,-50%);}
+
+  /* shared timeline: 6 scenes over one 16s loop */
+  #s1{animation:sc1 16s infinite;}
+  #s2{animation:sc2 16s infinite;}
+  #s3{animation:sc3 16s infinite;}
+  #s4{animation:sc4 16s infinite;}
+  #s5{animation:sc5 16s infinite;}
+  #s6{animation:sc6 16s infinite;}
+  @keyframes sc1{0%{opacity:0;transform:scale(.94);}2%{opacity:1;transform:scale(1);}15.6%{opacity:1;}16.6%{opacity:0;transform:scale(1.03);}100%{opacity:0;}}
+  @keyframes sc2{0%{opacity:0;}16.6%{opacity:0;transform:translateY(16px);}18.3%{opacity:1;transform:translateY(0);}32%{opacity:1;}33.3%{opacity:0;transform:translateY(-16px);}100%{opacity:0;}}
+  @keyframes sc3{0%{opacity:0;}33.3%{opacity:0;transform:translateY(16px);}35%{opacity:1;transform:translateY(0);}48.7%{opacity:1;}50%{opacity:0;transform:translateY(-16px);}100%{opacity:0;}}
+  @keyframes sc4{0%{opacity:0;}50%{opacity:0;transform:translateY(16px);}51.7%{opacity:1;transform:translateY(0);}65.4%{opacity:1;}66.6%{opacity:0;transform:translateY(-16px);}100%{opacity:0;}}
+  @keyframes sc5{0%{opacity:0;}66.6%{opacity:0;transform:translateY(16px);}68.3%{opacity:1;transform:translateY(0);}82%{opacity:1;}83.3%{opacity:0;transform:translateY(-16px);}100%{opacity:0;}}
+  @keyframes sc6{0%{opacity:0;}83.3%{opacity:0;transform:scale(.96);}85%{opacity:1;transform:scale(1);}98.6%{opacity:1;}100%{opacity:0;transform:scale(1.02);}}
+
+  /* ===== S1 — logo ===== */
+  .logo-word{font-size:44px;font-weight:700;letter-spacing:.1em;color:var(--text);}
+  .logo-rule{width:52px;height:2px;background:linear-gradient(135deg,var(--cyan),#3b82f6);margin:16px auto;border-radius:2px;}
+  .logo-sub{font-size:12.5px;color:var(--text-dim);letter-spacing:.02em;}
+
+  /* ===== S2 — access code (mirrors the real login screen) ===== */
+  .tile-row{display:inline-flex;gap:6px;margin-bottom:18px;}
+  .tile{width:40px;height:56px;border-radius:6px;background:linear-gradient(180deg,#16233c,var(--panel));border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:var(--text);box-shadow:0 6px 16px rgba(0,0,0,.35) inset,0 4px 10px rgba(0,0,0,.3);position:relative;}
+  .tile::before{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.55);}
+  .tile.blank{color:transparent;}
+  .access-copy{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--text-dim);margin-bottom:26px;}
+  .cmd-line{display:flex;align-items:center;gap:12px;width:320px;border-bottom:1px solid var(--cyan);padding-bottom:10px;}
+  .cmd-line .prompt{color:var(--cyan);font-size:14px;}
+  .cmd-line .ph{flex:1;color:var(--text-faint);font-size:13px;letter-spacing:.05em;}
+  .cmd-line .arrow{color:var(--cyan);font-size:14px;}
+
+  /* ===== S3 — home / room chooser ===== */
+  .home-wrap{width:100%;max-width:640px;position:relative;}
+  .home-brand{font-size:17px;font-weight:700;color:var(--text);letter-spacing:.04em;}
+  .home-desc{font-size:12px;color:var(--text-dim);margin-top:4px;margin-bottom:22px;}
+  .home-panel{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:14px;}
+  .home-panel .k{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-faint);margin-bottom:6px;}
+  .home-panel .m{font-size:13px;color:var(--text-dim);margin-bottom:12px;}
+  .chk-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-dim);margin-bottom:14px;}
+  .chk-box{width:14px;height:14px;border:1px solid var(--border);border-radius:3px;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--panel-soft);color:var(--text);font-family:var(--mono);font-size:12px;font-weight:600;padding:9px 14px;border-radius:6px;}
+  .btn.solid{background:var(--text);color:#05070c;border-color:var(--text);}
+  .btn.wide{width:100%;}
+  .join-row{display:flex;gap:8px;}
+  .join-row input{flex:1;background:var(--panel-soft);border:1px solid var(--border);border-radius:6px;color:var(--text-faint);font-family:var(--mono);font-size:12px;padding:9px 10px;}
+  .home-note{font-size:10.5px;color:var(--text-faint);margin-top:8px;}
+  .home-wrap .crosshair{position:absolute;top:8px;right:-52px;}
+
+  /* ===== S4 — connect / stats bar ===== */
+  .connect-wrap{width:100%;max-width:640px;display:flex;flex-direction:column;align-items:center;gap:26px;}
+  .connect-btns{display:flex;gap:10px;}
+  .connect-btns .btn.mic{color:var(--text-dim);}
+  .stat-bar{display:flex;gap:22px;font-size:10.5px;color:var(--text-faint);letter-spacing:.04em;border-top:1px solid var(--border-soft);padding-top:14px;width:100%;justify-content:center;}
+  .stat-bar b{color:var(--text-dim);font-weight:600;}
+  .stat-bar .live{color:var(--cyan);}
+  .connect-hint{font-size:12.5px;color:#5f7bd6;text-align:center;max-width:420px;}
+
+  /* ===== S5 — broadcasting live ===== */
+  .live-wrap{width:100%;max-width:640px;display:flex;flex-direction:column;align-items:center;gap:14px;position:relative;}
+  .live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:dotPulse 1.6s ease-in-out infinite;}
+  @keyframes dotPulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .live-label{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);}
+  .live-copy{font-size:11.5px;color:var(--text-faint);text-align:center;max-width:420px;line-height:1.6;}
+  .res-badge{position:absolute;left:0;bottom:-6px;font-size:10px;color:var(--text-dim);border:1px solid var(--border);background:var(--panel-soft);padding:4px 8px;border-radius:5px;}
+  .live-btns{display:flex;gap:10px;margin-top:6px;}
+  .btn.stop{color:var(--red);border-color:rgba(248,113,113,.4);}
+
+  /* ===== S6 — waiting for viewer ===== */
+  .wait-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;}
+  .wait-dot{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber);animation:dotPulse 1.6s ease-in-out infinite;}
+  .wait-label{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);}
+  .wait-copy{font-size:13px;color:var(--text-dim);text-align:center;max-width:440px;line-height:1.7;}
+  .wait-room{font-family:var(--mono);color:var(--text);}
+</style>
+</head>
+<body>
+<div id="stageWrap">
+  <div id="stage">
+    <div class="grid-bg"></div>
+    <div class="glow c1"></div>
+    <div class="glow c2"></div>
+    <div id="particles"></div>
+
+    <!-- 1 LOGO -->
+    <section class="scene" id="s1">
+      <div class="crosshair"><span class="a"></span><span class="b"></span><span class="c"></span><span class="d"></span><span class="dot"></span></div>
+      <div class="logo-word" style="margin-top:14px;">FLOORLINK</div>
+      <div class="logo-rule"></div>
+      <div class="logo-sub">Internal live screen and audio link between office floors</div>
+    </section>
+
+    <!-- 2 ACCESS CODE -->
+    <section class="scene" id="s2">
+      <div class="tile-row">
+        <div class="tile blank"></div>
+        <div class="tile">F</div><div class="tile">L</div><div class="tile">O</div><div class="tile">O</div><div class="tile">R</div>
+        <div class="tile blank"></div>
+        <div class="tile">L</div><div class="tile">I</div><div class="tile">N</div><div class="tile">K</div>
+        <div class="tile blank"></div>
+      </div>
+      <div class="access-copy">Access code required</div>
+      <div class="cmd-line">
+        <span class="prompt">&gt;</span>
+        <span class="ph">Access code</span>
+        <span class="arrow">&#8594;</span>
+      </div>
+    </section>
+
+    <!-- 3 HOME -->
+    <section class="scene" id="s3">
+      <div class="home-wrap">
+        <div class="crosshair"><span class="a"></span><span class="b"></span><span class="c"></span><span class="d"></span><span class="dot"></span></div>
+        <div class="home-brand">FLOORLINK</div>
+        <div class="home-desc">Internal live screen and audio link between office floors.</div>
+        <div class="home-panel">
+          <div class="k">Broadcast from this PC</div>
+          <div class="m">Create a room and share your screen with another floor.</div>
+          <div class="chk-row"><span class="chk-box"></span> Require a PIN to join</div>
+          <div class="btn solid wide">Create Room</div>
+        </div>
+        <div class="home-panel">
+          <div class="k">View a broadcast</div>
+          <div class="join-row">
+            <input readonly value="Room ID, e.g. floor-1" />
+            <div class="btn solid" style="padding:9px 20px;">Join</div>
+          </div>
+          <div class="home-note">You'll be asked for a PIN on the next screen if this room requires one.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 CONNECT -->
+    <section class="scene" id="s4">
+      <div class="connect-wrap">
+        <div class="connect-hint">Click Start Broadcast to select a screen, window, or tab to share.</div>
+        <div class="connect-btns">
+          <div class="btn solid">Start Broadcast</div>
+          <div class="btn mic">Mic: On</div>
+        </div>
+        <div class="stat-bar">
+          <span><b>0</b> VIEWERS</span>
+          <span>SIGNALING: <span class="live">CONNECTED</span></span>
+          <span>PEER: UNKNOWN</span>
+          <span>ICE: UNKNOWN</span>
+          <span>AUDIO: --</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 BROADCASTING -->
+    <section class="scene" id="s5">
+      <div class="live-wrap">
+        <div class="live-dot"></div>
+        <div class="live-label">Broadcasting</div>
+        <div class="live-copy">Local preview is hidden by default to avoid a mirror effect when sharing your whole screen or a window that includes this tab.</div>
+        <div class="btn" style="margin-top:4px;">Show preview anyway</div>
+        <div class="res-badge">3840×2160 @ 30 FPS</div>
+        <div class="live-btns">
+          <div class="btn stop">Stop Broadcast</div>
+          <div class="btn mic">Mic: On</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 WAITING FOR VIEWER -->
+    <section class="scene" id="s6">
+      <div class="wait-wrap">
+        <div class="wait-dot"></div>
+        <div class="wait-label">Waiting for viewer</div>
+        <div class="wait-copy">Your floor is live on <span class="wait-room">floor-1</span>. Share the room ID with the other floor to connect.</div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+  function fit(){
+    var wrap = document.getElementById('stageWrap');
+    var stage = document.getElementById('stage');
+    var scale = wrap.clientWidth / 1280;
+    stage.style.transform = 'scale(' + scale + ')';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+
+  var field = document.getElementById('particles');
+  for (var i = 0; i < 22; i++){
+    var p = document.createElement('div');
+    p.className = 'particle';
+    var size = 2 + Math.random() * 2.2;
+    p.style.width = size + 'px'; p.style.height = size + 'px';
+    p.style.left = (Math.random() * 100) + '%';
+    p.style.top = (30 + Math.random() * 60) + '%';
+    var dur = 5 + Math.random() * 6;
+    p.style.animationDuration = dur + 's';
+    p.style.animationDelay = (-Math.random() * dur) + 's';
+    field.appendChild(p);
+  }
+</script>
+</body>
+</html>
