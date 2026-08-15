@@ -1,6 +1,6 @@
 # FloorLink
 
-Live: https://deadwayz.github.io/hyle-showcase/
+Live: [(https://deadwayz.github.io/floorlink-showcase/)]
 
 ![Floorlink showcase preview](floorlink.gif)
 
