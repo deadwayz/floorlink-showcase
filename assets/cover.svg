@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-labelledby="title desc">
+<title id="title">FloorLink</title><desc id="desc">Share the screen. Keep the connection simple.</desc>
+<rect width="1200" height="280" rx="12" fill="#111722"/>
+<path d="M56 42v196" stroke="#8cccf6" stroke-width="3"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="86" y="75" fill="#8cccf6" font-size="14" letter-spacing="2.2">BROWSER SCREEN SHARING</text>
+<text x="84" y="151" fill="#f3f5f8" font-size="58" font-weight="700">FloorLink</text>
+<text x="87" y="201" fill="#c0c9d5" font-size="24">Share the screen. Keep the connection simple.</text>
+<text x="1100" y="247" text-anchor="end" fill="#b7c1cf" font-size="12" letter-spacing="1.8">PRODUCT SHOWCASE</text>
+</g></svg>

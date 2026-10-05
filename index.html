@@ -3,7 +3,8 @@
 <head>
   <link rel="icon" href="floorlink.ico">
 <meta charset="UTF-8">
-<title>FLOORLINK — Product Tour</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FloorLink — Product Showcase</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -116,8 +117,42 @@
   .wait-copy{font-size:13px;color:var(--text-dim);text-align:center;max-width:440px;line-height:1.7;}
   .wait-room{font-family:var(--mono);color:var(--text);}
 </style>
+<meta name="description" content="FloorLink product showcase: browser screen and audio sharing over WebRTC, with Cloudflare signaling and room controls.">
+<meta property="og:title" content="FloorLink — Product Showcase">
+<meta property="og:description" content="FloorLink product showcase: browser screen and audio sharing over WebRTC, with Cloudflare signaling and room controls.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://deadwayz.github.io/floorlink-showcase/">
+<style>
+body{flex-direction:column;gap:22px;padding:32px 20px;height:auto;min-height:100svh;}
+#stageWrap,.frame{flex-shrink:0;}
+.portfolio-note{position:relative;z-index:5;width:100%;max-width:1000px;color:#aebaca;font:13px/1.6 system-ui,sans-serif;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.portfolio-note p{margin:0;max-width:610px;}
+.portfolio-note strong{color:#edf2f8;font-weight:600;}
+.portfolio-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.portfolio-actions a,.portfolio-actions button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:9px 14px;color:#edf2f8;border:1px solid #526074;background:#141c29;border-radius:8px;text-decoration:none;font:inherit;cursor:pointer;}
+.portfolio-actions a:hover,.portfolio-actions button:hover{background:#223046;}
+.portfolio-actions a:focus-visible,.portfolio-actions button:focus-visible{outline:3px solid #a8c7ff;outline-offset:3px;}
+.hero-cta{text-decoration:none;cursor:pointer;}
+@media(max-width:600px){body{padding:24px 12px;}.portfolio-note{font-size:13px;gap:14px;}.portfolio-actions{width:100%;}.portfolio-actions a,.portfolio-actions button{flex:1;}.hero{padding:0 10px;}.headline{font-size:23px;}}
+.still-mode *, .still-mode *::before, .still-mode *::after {animation:none!important;transition:none!important;}
+.still-mode .scene {opacity:0!important;pointer-events:none;transform:none!important;}
+.still-mode #s3 {opacity:1!important;pointer-events:auto;}
+.still-mode #s3 * {opacity:1!important;transform:none!important;filter:none!important;}
+.still-mode #chapterA {opacity:1!important;pointer-events:auto;}
+.still-mode #chapterB {display:none!important;}
+
+</style>
+<style>
+body{justify-content:center;background:#090d14;}
+.portfolio-intro{width:100%;max-width:1000px;text-align:center;font-family:system-ui,sans-serif;}
+.portfolio-intro .kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9eacbf;margin:0 0 10px;}
+.portfolio-intro h1{font-size:36px;letter-spacing:-.035em;line-height:1.1;color:#f2f5f9;margin:0 0 12px;}
+.portfolio-intro .tagline{color:#bcc8d8;font-size:16px;line-height:1.5;margin:0;}
+@media(max-width:600px){body{justify-content:flex-start;padding-top:48px;}.portfolio-intro h1{font-size:32px;}.portfolio-intro .tagline{font-size:15px;}}
+</style>
 </head>
 <body>
+<header class="portfolio-intro"><p class="kicker">Product showcase</p><h1>FloorLink</h1><p class="tagline">Share the screen. Keep the connection simple.</p></header>
 <div id="stageWrap">
   <div id="stage">
     <div class="grid-bg"></div>
@@ -241,6 +276,23 @@
     p.style.animationDelay = (-Math.random() * dur) + 's';
     field.appendChild(p);
   }
+</script>
+<footer class="portfolio-note" aria-label="About this showcase">
+<p><strong>Product tour · FloorLink</strong><br>Illustrative presentation. Application source remains private. Preview screens may differ from the current application.</p>
+<div class="portfolio-actions"><a href="https://github.com/deadwayz/floorlink-showcase">Read the case study</a><button type="button" id="motionToggle" aria-pressed="false">Use still view</button></div>
+</footer>
+<script>
+(function(){
+  var button=document.getElementById('motionToggle');
+  function setStill(still){
+    document.body.classList.toggle('still-mode',still);
+    button.setAttribute('aria-pressed',String(still));
+    button.textContent=still?'Play tour':'Use still view';
+
+  }
+  setStill(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  button.addEventListener('click',function(){setStill(!document.body.classList.contains('still-mode'));});
+})();
 </script>
 </body>
 </html>
